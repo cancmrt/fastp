@@ -1,0 +1,4 @@
+{
+    "type":"sqlite",
+    "dbconnection":"LanguagePrepare.db"
+}
