@@ -1,0 +1,22 @@
+{
+  "name": "fastp",
+  "version": "1.0.0",
+  "description": "Fast Prototyping with sql queries",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "fast",
+    "prototype",
+    "sql"
+  ],
+  "author": "cancmrt",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "config": "^3.3.10",
+    "express": "^4.18.2",
+    "sqlite3": "^5.1.7"
+  }
+}
