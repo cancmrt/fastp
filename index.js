@@ -1,4 +1,5 @@
 var express = require('express');
+var cors = require('cors')
 var StickyMiddleware = require('./fastp-core/fastp-sticky-middleware');
 const config = require('config');
 
@@ -9,12 +10,15 @@ if(!config.has("type")){
 
 var app = express();
 
+app.use(cors());
+
 var sm = new StickyMiddleware(app);
 app = sm.StickIt(app);
+
 app.get('/', function (req, res) {
   res.send('Hello From Fastp!');
 });
 
-app.listen(3000, function () {
-  console.log('Example app listening on port 3000!');
+app.listen(3124, function () {
+  console.log('Example app listening on port 3124!');
 });

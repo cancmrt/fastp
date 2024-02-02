@@ -1,4 +1,4 @@
 {
     "type":"sqlite",
-    "dbconnection":"LanguagePrepare.db"
+    "dbconnection":"HomemadeApp.db"
 }
