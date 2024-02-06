@@ -1,6 +1,7 @@
 const fs = require("fs");
 const config = require('config');
 const { Curl } = require('node-libcurl');
+const SqlString = require('sqlstring');
 const SqliteConnector = require("./dbconnectors/sqlite-connector");
 
 class Engine {
@@ -35,7 +36,7 @@ class Engine {
         }
   
         for(var name in body) {
-          var value = body[name];
+          var value = SqlString.escape(body[name]);
           query = query.replaceAll(("@"+name),value)
         }
         console.log(query);
