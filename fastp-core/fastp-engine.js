@@ -39,10 +39,19 @@ class Engine {
           query = query.replaceAll(("@"+name),value)
         }
         console.log(query);
-        Connector.GetQuery(query, (data) => {
-          console.log(data);
-          FinalData(data);
-        });
+        if(query.toLowerCase().includes("insert") || query.toLowerCase().includes("update")){
+          Connector.ExecuteQuery(query, (data) => {
+            console.log(data);
+            FinalData(data);
+          });
+        }
+        else{
+          Connector.GetQuery(query, (data) => {
+            console.log(data);
+            FinalData(data);
+          });
+        }
+        
       }
       if(urlResult == 2){
         let CurlCommand = fs.readFileSync(process.cwd() + "/" + this.GetUrlPath(url,".curl")).toString();
@@ -50,7 +59,17 @@ class Engine {
           console.log("CURL çekilemedi");
           nextFunc();
         }
+        
         let CurlCmdJs = JSON.parse(CurlCommand);
+
+        if(CurlCmdJs.PassBodyAsRequest != true){
+          for(var name in body) {
+            var value = body[name];
+            CurlCommand = CurlCommand.replaceAll(("@"+name),value)
+          }
+          CurlCmdJs = JSON.parse(CurlCommand);
+        }
+
         const curl = new Curl();
 
         curl.setOpt('URL', CurlCmdJs.RequestUrl);
@@ -58,8 +77,9 @@ class Engine {
         curl.setOpt('FOLLOWLOCATION', true);
         
         curl.setOpt(Curl.option.CUSTOMREQUEST, CurlCmdJs.Method);
-
-        curl.setOpt(Curl.option.POSTFIELDS, JSON.stringify(body));
+        if(CurlCmdJs.PassBodyAsRequest == true && CurlCmdJs.Method == "POST"){
+          curl.setOpt(Curl.option.POSTFIELDS, JSON.stringify(body));
+        }
 
         curl.setOpt(Curl.option.SSL_VERIFYPEER, CurlCmdJs.SSLVerifyPeer);
 
