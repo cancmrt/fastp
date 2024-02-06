@@ -15,11 +15,11 @@ class SqliteConnector {
         });
     }
     ExecuteQuery(query,result){
-        db.run(query, (err) => {
+        this.db.run(query, (err) => {
             if(err) {
                 throw err;
             }
-            result(this);
+            result(true);
         })
     }
 
