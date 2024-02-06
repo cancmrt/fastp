@@ -32,7 +32,7 @@ class Engine {
         let query = fs.readFileSync(process.cwd() + "/" + this.GetUrlPath(url,".sql")).toString();
         if(!query){
           console.log("Sorgu çekilemedi");
-          nextFunc();
+          nextFunc(); 
         }
   
         for(var name in body) {
