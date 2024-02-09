@@ -9,6 +9,8 @@ class Engine {
         var Connector;
         console.log(url);
       var urlResult = this.UrlExistAndType(url);
+      var urlReplaceChracter = '\\';
+      var urlReplaceChracterNow = "'";
       if(urlResult == -1){
         console.log("URL eşleştirme başarısız");
         nextFunc();
@@ -23,6 +25,8 @@ class Engine {
           nextFunc();
         }
         if(config.get("type") == "sqlite"){
+          urlReplaceChracter = '\\';
+          urlReplaceChracterNow = "'";
           Connector = new SqliteConnector(config.get("dbconnection"))
         }else{
           console.log("Veritabanı connectoru sağlanamadı.");
@@ -36,7 +40,7 @@ class Engine {
         }
   
         for(var name in body) {
-          var value = SqlString.escape(body[name]);
+          var value = SqlString.escape(body[name]).replaceAll(urlReplaceChracter,urlReplaceChracterNow);
           query = query.replaceAll(("@"+name),value)
         }
         console.log(query);
