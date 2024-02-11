@@ -77,7 +77,7 @@ class Engine {
 
         const curl = new Curl();
 
-        curl.setOpt('URL', CurlCmdJs.RequestUrl);
+        curl.setOpt('URL', encodeURI(CurlCmdJs.RequestUrl));
         curl.setOpt(Curl.option.HTTPHEADER,CurlCmdJs.Headers)
         curl.setOpt('FOLLOWLOCATION', true);
         
